@@ -12,30 +12,30 @@ Database Structure
 ------------------
 
 Created tables and columns: 
-* *vulnerabilities*: This table contains the vulnerabilities
-** vuln_id
-** cve
-** cwe
-** cvss_score
-** summary
-** published_date
-** modified_date
+* _vulnerabilities_: This table contains the vulnerabilities
+**vuln_id
+**cve
+**cwe
+**cvss_score
+**summary
+**published_date
+**modified_date
 
-* *cpe*: This table contains the common platform enumeration dictionary
-** cpe_id
-** cpe_text
-** part
-** vendor
-** product
-** version
-** update_date
-** edition
-** language
+* _cpe_: This table contains the common platform enumeration dictionary
+**cpe_id
+**cpe_text
+**part
+**vendor
+**product
+**version
+**update_date
+**edition
+**language
 
-* *affects_to_cpe*: This table contains the relation between the vulnerability and the cpes affected
-** affects_to_cpe_id
-** vuln_id
-** cpe_id
+* _affects_to_cpe_: This table contains the relation between the vulnerability and the cpes affected
+**affects_to_cpe_id
+**vuln_id
+**cpe_id
 
 
 Usage
@@ -58,6 +58,7 @@ Options:
 Output Example
 --------------
 
+```
 parserNVD$ ./nvdparser.py -d nvd.vulnerabilities.db
 =====================================================
 =     NVD vulnerability downloader & parser v0.1    =
@@ -77,4 +78,4 @@ Vulnerability CVE-2012-5849 is already in the database
 Vulnerability CVE-2014-1900 is already in the database
 [...]
 
-
+```
