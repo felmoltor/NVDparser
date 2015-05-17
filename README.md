@@ -78,3 +78,24 @@ Vulnerability CVE-2014-1900 is already in the database
 [...]
 
 ```
+
+Manual exportation
+------------------
+
+Examples of how to extract from the sqlite database to a CSV file.
+
+```
+user@host:~/Tools/NVDparser$ sqlite3 nvd.vulnerabilities.db
+SQLite version 3.8.6 2014-08-15 11:46:33
+Enter ".help" for usage hints.
+sqlite> .headers on
+sqlite> .mode csv
+sqlite> .separator "|"
+sqlite> .out cve20063823.csv
+sqlite> select cve,cvss_score,summary,vendor,product,version from vulnerabilities v inner join affects_to_cpe ac  on v.vuln_id = ac.vuln_id inner join cpe c on ac.cpe_id = c.cpe_id where v.cve = 'CVE-2006-3823';
+sqlite> .q
+user@host:~/Tools/NVDparser$ cat cve20063823.csv
+cve|cvss_score|summary|vendor|product|version
+CVE-2006-3823|5.1|"SQL injection vulnerability in index.php in GeodesicSolutions (1) GeoAuctions Premier 2.0.3 and (2) GeoClassifieds Basic 2.0.3 allows remote attackers to execute arbitrary SQL commands via the b parameter."|geodesicsolutions|geoauctions_premier|2.0.3
+CVE-2006-3823|5.1|"SQL injection vulnerability in index.php in GeodesicSolutions (1) GeoAuctions Premier 2.0.3 and (2) GeoClassifieds Basic 2.0.3 allows remote attackers to execute arbitrary SQL commands via the b parameter."|geodesicsolutions|geoclassifieds_basic|2.0.3
+```
