@@ -12,31 +12,30 @@ Database Structure
 ------------------
 
 Created tables and columns: 
-* _vulnerabilities_: This table contains the vulnerabilities
-**vuln_id
-**cve
-**cwe
-**cvss_score
-**summary
-**published_date
-**modified_date
 
-* _cpe_: This table contains the common platform enumeration dictionary
-**cpe_id
-**cpe_text
-**part
-**vendor
-**product
-**version
-**update_date
-**edition
-**language
 
-* _affects_to_cpe_: This table contains the relation between the vulnerability and the cpes affected
-**affects_to_cpe_id
-**vuln_id
-**cpe_id
-
+* **vulnerabilities**: This table contains the vulnerabilities
+  * vuln_id
+  * cve
+  * cwe
+  * cvss_score
+  * summary
+  * published_date
+  * modified_date
+* **cpe**: This table contains the common platform enumeration dictionary
+  * cpe_id
+  * cpe_text
+  * part
+  * vendor
+  * product
+  * version
+  * update_date
+  * edition
+  * language
+* **affects_to_cpe**: This table contains the relation between the vulnerability and the cpes affected
+  * affects_to_cpe_id
+  * vuln_id
+  * cpe_id
 
 Usage
 -----
