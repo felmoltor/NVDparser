@@ -92,7 +92,7 @@ def initDatabase(dbname):
                     modified_date INT,
                     dldate_id INT,
                     FOREIGN KEY(dldate_id) REFERENCES download_dates(dldate_id))''')
-    c.execute('''CREATE INDEX vulncve_idx ON vulnerabilities(cve)''')
+    c.execute('''CREATE INDEX IF NOT EXISTS vulncve_idx ON vulnerabilities(cve)''')
     
     
     return conn
@@ -294,8 +294,11 @@ for trow in feedtable.xpath("tbody/tr"):
                 # Unzip and parse the file to store it in sqlite3
                 g = gzip.open(dlname,"rb")
                 gcontent = g.read()
+                g.close() # Free memory
+                g = None
                 print "Now, importing content of the file %s" % dlname
                 ifxml = etree.XML(gcontent)
+                gcontent = None # Free memory
                 for entry in ifxml.getchildren():
                     # print entry.getchildren()
                     cwe = summary = cveid = "?"
