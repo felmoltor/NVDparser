@@ -84,6 +84,12 @@ Manual exportation
 
 Examples of how to extract from the sqlite database to a CSV file.
 
+Oneliner:
+```
+sqlite3 -csv -header -separator '|' nvd.vulnerabilities.db 'select cve,cvss_score,vendor,product,version,update_date,edition,language,summary from vulnerabilities v inner join affects_to_cpe ac on v.vuln_id = ac.vuln_id inner join cpe c on ac.cpe_id = c.cpe_id where c.vendor = "microsoft" and c.product like "%windows%2008%"' > windows_2008.all.editions.csv
+```
+
+Within the sqlite file:
 ```
 user@host:~/Tools/NVDparser$ sqlite3 nvd.vulnerabilities.db
 SQLite version 3.8.6 2014-08-15 11:46:33
