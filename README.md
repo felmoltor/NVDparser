@@ -34,8 +34,8 @@ Created tables and columns:
   * language
 * **affects_to_cpe**: This table contains the relation between the vulnerability and the cpes affected
   * affects_to_cpe_id
-  * vuln_id
-  * cpe_id
+  * vuln_id (Foreign Key of vulnerabilities.vuln_id)
+  * cpe_id  (Foreign Key of cpe.cpe_id)
 
 Usage
 -----
