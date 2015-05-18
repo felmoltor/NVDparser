@@ -220,9 +220,10 @@ def updateVuln(conn,cveid,cvss,cwe,summary,published_date,modified_date,cpetextl
     results = res.fetchall()
     if len(results) > 0:
         vuln_id = results[0][0]
-        
+    
+    print "Vuln_id to delete is '%s'" % vuln_id
     # Delete the previous affected CPEs and insert the new ones
-    res = cur.execute('''DELETE FROM affects_to_cpe WHERE vuln_id=?''',(vuln_id))
+    res = cur.execute('''DELETE FROM affects_to_cpe WHERE vuln_id=?''',(vuln_id,))
     
     res = cur.execute('''UPDATE vulnerabilities
         SET cve=?,cvss_score=?,cwe=?,summary=?,published_date=?,modified_date=? 
@@ -289,8 +290,6 @@ for trow in feedtable.xpath("tbody/tr"):
                 dlname = dllink.split("/").pop()
                 # Download the link with the XML
                 br.retrieve(dllink,dlname)
-                # Save as downloaded
-                storeDlDate(conn,dllink,feed,size)
                 # Unzip and parse the file to store it in sqlite3
                 g = gzip.open(dlname,"rb")
                 gcontent = g.read()
@@ -355,7 +354,9 @@ for trow in feedtable.xpath("tbody/tr"):
                             updateVuln(conn,cveid,cvss,cwe,summary,published,modified,cpetextlist)
                         else:
                             print colored("Vulnerability %s is already in the database" % cveid,"red")
-                    
+                
+                # Save as downloaded
+                storeDlDate(conn,dllink,feed,size)
 
             else:
                 print colored("File %s is up to date. Not downloading." % dllink,"green")
