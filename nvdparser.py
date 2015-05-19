@@ -221,14 +221,13 @@ def updateVuln(conn,cveid,cvss,cwe,summary,published_date,modified_date,cpetextl
     if len(results) > 0:
         vuln_id = results[0][0]
     
-    print "Vuln_id to delete is '%s'" % vuln_id
     # Delete the previous affected CPEs and insert the new ones
     res = cur.execute('''DELETE FROM affects_to_cpe WHERE vuln_id=?''',(vuln_id,))
     
     res = cur.execute('''UPDATE vulnerabilities
         SET cve=?,cvss_score=?,cwe=?,summary=?,published_date=?,modified_date=? 
         WHERE vuln_id=?
-    ''',(cve,cvss_score,cwe,summary,pubepoch,modepoch,cve,vuln_id))
+    ''',(cveid,cvss,cwe,summary,pubepoch,modepoch,vuln_id))
     vulnpk=cur.lastrowid
     conn.commit()
     
