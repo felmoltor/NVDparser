@@ -1,4 +1,4 @@
-# NVDparser
+# NVDparser (OBSOLETE DUE TO NVD CHANGING THE PROVIDED XML FILES)
 
 Summary
 -------
